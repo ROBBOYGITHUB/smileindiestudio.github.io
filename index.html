@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smile Indie Interactive</title>
-    <!-- Fuente profesional desde Google Fonts -->
+    <!-- Fuentes desde Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
     
     <style>
         * {
@@ -16,8 +16,9 @@
             box-sizing: border-box;
         }
 
+        /* Fondo completamente negro integrado con el logo */
         body {
-            background-color: #050505;
+            background-color: #000000;
             color: #e0e0e0;
             font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
             display: flex;
@@ -29,7 +30,7 @@
             user-select: none;
         }
 
-        /* Encabezado y Logo del Estudio */
+        /* Encabezado e imagen del Logo sin efectos hover */
         header {
             text-align: center;
             margin-top: 20px;
@@ -40,13 +41,7 @@
             height: auto;
             display: block;
             margin: 0 auto;
-            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.15));
-            transition: filter 0.3s ease, transform 0.3s ease;
-        }
-
-        .studio-logo:hover {
-            filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.3));
-            transform: scale(1.02);
+            /* Se eliminaron filtros y transformaciones al pasar el cursor */
         }
 
         /* Área principal */
@@ -64,17 +59,17 @@
             position: relative;
             max-width: 900px;
             width: 100%;
-            background: #111113;
+            background: #0d0d0f;
             padding: 24px 24px 35px 24px;
             border-radius: 28px;
-            border: 3px solid #222225;
+            border: 3px solid #1a1a1e;
             box-shadow: 
-                0 0 30px rgba(0, 0, 0, 0.9),
-                inset 0 0 15px rgba(0, 0, 0, 0.8),
-                0 0 15px rgba(255, 255, 255, 0.02);
+                0 0 35px rgba(0, 0, 0, 1),
+                inset 0 0 20px rgba(0, 0, 0, 0.9),
+                0 0 10px rgba(255, 255, 255, 0.01);
         }
 
-        /* Pantalla curva de tubo CRT */
+        /* Pantalla CRT */
         .tv-screen {
             position: relative;
             width: 100%;
@@ -82,18 +77,103 @@
             border-radius: 16px;
             overflow: hidden;
             border: 2px solid #000;
-            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.9);
+            box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.95);
+            cursor: pointer;
         }
 
-        /* Imagen Teaser dentro de la TV */
+        /* Imagen del Teaser */
         .tv-screen img {
             width: 100%;
             height: auto;
             display: block;
             filter: contrast(1.05) brightness(0.95);
+            transition: transform 0.5s ease, filter 0.5s ease;
         }
 
-        /* Overlay con efecto de Scanlines (Líneas de TV retro) */
+        /* Desenfoque ligero a la imagen al pasar el cursor */
+        .tv-screen:hover img {
+            transform: scale(1.02);
+            filter: contrast(1.1) brightness(0.4) blur(2px);
+        }
+
+        /* --- CUADRO DE INFORMACIÓN EN HOVER --- */
+        .teaser-info-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 30px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(4px);
+        }
+
+        .tv-screen:hover .teaser-info-overlay {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .info-card {
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(15, 15, 20, 0.85);
+            padding: 24px 32px;
+            border-radius: 12px;
+            max-width: 600px;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.8);
+            transform: translateY(15px);
+            transition: transform 0.4s ease;
+        }
+
+        .tv-screen:hover .info-card {
+            transform: translateY(0);
+        }
+
+        .info-card h2 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: #ffffff;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+        }
+
+        .info-card p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #cccccc;
+            margin-bottom: 18px;
+        }
+
+        .info-meta {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            color: #888899;
+            text-transform: uppercase;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 12px;
+        }
+
+        .info-meta span {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        /* Scanlines */
         .tv-screen::after {
             content: " ";
             display: block;
@@ -104,12 +184,12 @@
                 rgba(0, 0, 0, 0.35) 50%
             );
             background-size: 100% 4px;
-            z-index: 2;
+            z-index: 4;
             pointer-events: none;
             opacity: 0.7;
         }
 
-        /* Reflejo o brillo del cristal de la pantalla */
+        /* Reflejo de pantalla */
         .tv-screen::before {
             content: " ";
             display: block;
@@ -117,14 +197,14 @@
             top: 0; left: 0; right: 0; bottom: 0;
             background: radial-gradient(
                 circle at 50% 30%, 
-                rgba(255, 255, 255, 0.05) 0%, 
+                rgba(255, 255, 255, 0.04) 0%, 
                 rgba(0, 0, 0, 0.4) 90%
             );
-            z-index: 3;
+            z-index: 5;
             pointer-events: none;
         }
 
-        /* Luces indicadoras/Detalles de la TV */
+        /* Detalles del televisor */
         .tv-details {
             display: flex;
             justify-content: flex-end;
@@ -156,7 +236,7 @@
             margin-bottom: 20px;
             text-align: center;
             font-size: 0.85rem;
-            color: #55555e;
+            color: #44444e;
             letter-spacing: 1px;
         }
 
@@ -165,7 +245,7 @@
         }
 
         footer a {
-            color: #888899;
+            color: #777788;
             text-decoration: none;
             transition: color 0.3s ease;
         }
@@ -178,7 +258,6 @@
 <body>
 
     <header>
-        <!-- Logo del estudio -->
         <a href="index.html">
             <img src="Smile_indie_20260925_222557_0002.png" alt="Smile Indie Interactive Logo" class="studio-logo">
         </a>
@@ -188,9 +267,24 @@
         <!-- Estructura de Televisor CRT Retro -->
         <div class="tv-frame">
             <div class="tv-screen">
-                <!-- Imagen del teaser / logo del juego -->
-                <img src="LogoV.PNG" alt="Teaser oficial">
+                <!-- Imagen Teaser -->
+                <img src="LogoV.PNG" alt="Elevator Pit Teaser">
+
+                <!-- Recuadro informativo que se despliega al pasar el cursor -->
+                <div class="teaser-info-overlay">
+                    <div class="info-card">
+                        <h2>ELEVATOR-PIT</h2>
+                        <p>
+                            Un action roguelike 3D low-poly donde encarnas a un robot descendiendo por pisos procedimentales en las instalaciones de Azath Corporation. Enfréntate a criaturas, hackea terminales y recolecta mejoras para sobrevivir a la bajada.
+                        </p>
+                        <div class="info-meta">
+                            <div>GÉNERO: <span>ACCION / ROGUELIKE</span></div>
+                            <div>ESTADO: <span>EN DESARROLLO</span></div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
             <!-- Detalles del chasis del televisor -->
             <div class="tv-details">
                 <span class="tv-brand">CRT-90</span>
