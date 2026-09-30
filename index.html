@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tu Estudio de Videojuegos</title>
+    <!-- Fuente profesional desde Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+    
     <style>
-        /* Estilos base al estilo Scott Games */
         * {
             margin: 0;
             padding: 0;
@@ -13,33 +17,35 @@
         }
 
         body {
-            background-color: #000000;
-            color: #ffffff;
-            font-family: 'Courier New', Courier, monospace; /* Fuente retro estilo terminal/misterio */
+            background-color: #050505;
+            color: #e0e0e0;
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
             min-height: 100vh;
             padding: 20px;
-            user-select: none; /* Evita arrastrar elementos accidentalmente */
+            user-select: none;
         }
 
-        /* Encabezado con el nombre del estudio */
+        /* Encabezado elegante y profesional */
         header {
             text-align: center;
             margin-top: 20px;
         }
 
         header h1 {
-            font-size: 1.8rem;
-            letter-spacing: 4px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 6px;
             text-transform: uppercase;
-            color: #cccccc;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
         }
 
-        /* Contenedor del Teaser principal */
+        /* Área principal */
         main {
             display: flex;
             justify-content: center;
@@ -49,37 +55,113 @@
             width: 100%;
         }
 
-        .teaser-container {
-            max-width: 960px;
+        /* --- MARCO DE TELEVISOR RETRO CRT --- */
+        .tv-frame {
+            position: relative;
+            max-width: 900px;
             width: 100%;
-            text-align: center;
+            background: #111113;
+            padding: 24px 24px 35px 24px;
+            border-radius: 28px;
+            border: 3px solid #222225;
+            box-shadow: 
+                0 0 30px rgba(0, 0, 0, 0.9),
+                inset 0 0 15px rgba(0, 0, 0, 0.8),
+                0 0 15px rgba(255, 255, 255, 0.02);
         }
 
-        .teaser-container img {
-            max-width: 100%;
+        /* Pantalla curva de tubo CRT */
+        .tv-screen {
+            position: relative;
+            width: 100%;
+            background-color: #000;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid #000;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.9);
+        }
+
+        /* Imagen Teaser dentro de la TV */
+        .tv-screen img {
+            width: 100%;
             height: auto;
             display: block;
-            margin: 0 auto;
-            /* Efecto sutil para resaltar la imagen en fondo negro */
-            border: 1px solid #111111;
+            filter: contrast(1.05) brightness(0.95);
         }
 
-        /* Pie de página minimalista */
+        /* Overlay con efecto de Scanlines (Líneas de TV retro) */
+        .tv-screen::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(
+                rgba(18, 16, 16, 0) 50%, 
+                rgba(0, 0, 0, 0.35) 50%
+            );
+            background-size: 100% 4px;
+            z-index: 2;
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        /* Reflejo o brillo del cristal de la pantalla */
+        .tv-screen::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(
+                circle at 50% 30%, 
+                rgba(255, 255, 255, 0.05) 0%, 
+                rgba(0, 0, 0, 0.4) 90%
+            );
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        /* Luces indicadoras/Detalles de la TV */
+        .tv-details {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 12px;
+            padding-right: 10px;
+            gap: 12px;
+        }
+
+        .power-led {
+            width: 8px;
+            height: 8px;
+            background-color: #ff3b30;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #ff3b30;
+        }
+
+        .tv-brand {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.75rem;
+            color: #44444a;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        /* Pie de página */
         footer {
             margin-bottom: 20px;
             text-align: center;
-            font-size: 0.8rem;
-            color: #444444; /* Texto tenue */
+            font-size: 0.85rem;
+            color: #55555e;
             letter-spacing: 1px;
         }
 
         footer p {
-            margin-bottom: 5px;
+            margin-bottom: 6px;
         }
 
-        /* Enlaces discretos */
         footer a {
-            color: #666666;
+            color: #888899;
             text-decoration: none;
             transition: color 0.3s ease;
         }
@@ -92,16 +174,23 @@
 <body>
 
     <header>
-        <!-- Cambia esto por el nombre de tu estudio -->
+        <!-- Reemplaza con el nombre de tu estudio -->
         <h1>TU ESTUDIO GAMES</h1>
     </header>
 
     <main>
-        <section class="teaser-container">
-            <!-- Coloca aquí la imagen de tu teaser actual -->
-            <!-- Puedes reemplazar el src por la ruta de tu imagen, ej: "assets/teaser1.png" -->
-            <img src="https://via.placeholder.com/960x540/050505/333333?text=PRÓXIMAMENTE" alt="Teaser del juego">
-        </section>
+        <!-- Estructura de Televisor CRT Retro -->
+        <div class="tv-frame">
+            <div class="tv-screen">
+                <!-- Imagen de tu teaser aquí -->
+                <img src="https://via.placeholder.com/960x540/08080c/444455?text=PROXIMAMENTE" alt="Teaser oficial">
+            </div>
+            <!-- Detalles del chasis del televisor -->
+            <div class="tv-details">
+                <span class="tv-brand">CRT-90</span>
+                <div class="power-led"></div>
+            </div>
+        </div>
     </main>
 
     <footer>
