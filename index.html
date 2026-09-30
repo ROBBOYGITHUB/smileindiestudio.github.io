@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tu Estudio de Videojuegos</title>
+    <title>Smile Indie Interactive</title>
     <!-- Fuente profesional desde Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,20 +29,24 @@
             user-select: none;
         }
 
-        /* Encabezado elegante y profesional */
+        /* Encabezado y Logo del Estudio */
         header {
             text-align: center;
             margin-top: 20px;
         }
 
-        header h1 {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 2.2rem;
-            font-weight: 700;
-            letter-spacing: 6px;
-            text-transform: uppercase;
-            color: #ffffff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
+        .studio-logo {
+            max-width: 280px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.15));
+            transition: filter 0.3s ease, transform 0.3s ease;
+        }
+
+        .studio-logo:hover {
+            filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.3));
+            transform: scale(1.02);
         }
 
         /* Área principal */
@@ -174,16 +178,18 @@
 <body>
 
     <header>
-        <!-- Reemplaza con el nombre de tu estudio -->
-        <h1>SMILE INDIE INTERACTIVE</h1>
+        <!-- Logo del estudio -->
+        <a href="index.html">
+            <img src="Smile_indie_20260925_222557_0002.png" alt="Smile Indie Interactive Logo" class="studio-logo">
+        </a>
     </header>
 
     <main>
         <!-- Estructura de Televisor CRT Retro -->
         <div class="tv-frame">
             <div class="tv-screen">
-                <!-- Imagen de tu teaser aquí -->
-                <img src="https://via.placeholder.com/960x540/08080c/444455?text=PROXIMAMENTE" alt="Teaser oficial">
+                <!-- Imagen del teaser / logo del juego -->
+                <img src="LogoV.PNG" alt="Teaser oficial">
             </div>
             <!-- Detalles del chasis del televisor -->
             <div class="tv-details">
