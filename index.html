@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smile Indie Interactive</title>
-    <!-- Fuentes desde Google Fonts -->
+    <!-- Fuentes retro puras desde Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
     
     <style>
         * {
@@ -16,32 +16,34 @@
             box-sizing: border-box;
         }
 
-        /* Fondo completamente negro integrado con el logo */
+        /* Paleta y fondo de pantalla pura de tubos Catódicos */
         body {
             background-color: #000000;
-            color: #e0e0e0;
-            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #00ff66; /* Verde Fósforo Clásico */
+            font-family: 'Share Tech Mono', monospace;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
             min-height: 100vh;
-            padding: 20px;
+            padding: 15px;
             user-select: none;
+            overflow-x: hidden;
         }
 
-        /* Encabezado e imagen del Logo sin efectos hover */
+        /* --- ENCABEZADO Y LOGO --- */
         header {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 10px;
         }
 
         .studio-logo {
-            max-width: 280px;
+            max-width: 260px;
             height: auto;
             display: block;
             margin: 0 auto;
-            /* Se eliminaron filtros y transformaciones al pasar el cursor */
+            /* Leve efecto de distorsión analógica al logo */
+            filter: contrast(1.2) brightness(0.9);
         }
 
         /* Área principal */
@@ -50,53 +52,48 @@
             justify-content: center;
             align-items: center;
             flex-grow: 1;
-            margin: 40px 0;
+            margin: 20px 0;
             width: 100%;
         }
 
-        /* --- MARCO DE TELEVISOR RETRO CRT --- */
+        /* --- MARCO CRT ANALÓGICO PESADO --- */
         .tv-frame {
             position: relative;
-            max-width: 900px;
+            max-width: 880px;
             width: 100%;
-            background: #0d0d0f;
-            padding: 24px 24px 35px 24px;
-            border-radius: 28px;
-            border: 3px solid #1a1a1e;
+            background: #09090b;
+            padding: 18px 18px 28px 18px;
+            border: 4px solid #1a1a1d;
             box-shadow: 
-                0 0 35px rgba(0, 0, 0, 1),
-                inset 0 0 20px rgba(0, 0, 0, 0.9),
-                0 0 10px rgba(255, 255, 255, 0.01);
+                0 0 0 2px #050505,
+                inset 0 0 20px #000000;
         }
 
-        /* Pantalla CRT */
+        /* Pantalla CRT con parpadeo de imagen */
         .tv-screen {
             position: relative;
             width: 100%;
-            background-color: #000;
-            border-radius: 16px;
+            background-color: #020202;
+            border: 3px solid #111111;
             overflow: hidden;
-            border: 2px solid #000;
-            box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.95);
-            cursor: pointer;
+            cursor: crosshair; /* Puntero estilo retro/mira */
+            animation: crtFlicker 0.15s infinite;
         }
 
-        /* Imagen del Teaser */
+        /* Imagen Teaser */
         .tv-screen img {
             width: 100%;
             height: auto;
             display: block;
-            filter: contrast(1.05) brightness(0.95);
-            transition: transform 0.5s ease, filter 0.5s ease;
+            filter: grayscale(20%) contrast(1.2) brightness(0.85);
         }
 
-        /* Desenfoque ligero a la imagen al pasar el cursor */
+        /* Efecto al pasar el cursor sobre la pantalla */
         .tv-screen:hover img {
-            transform: scale(1.02);
-            filter: contrast(1.1) brightness(0.4) blur(2px);
+            filter: grayscale(80%) contrast(1.5) brightness(0.25);
         }
 
-        /* --- CUADRO DE INFORMACIÓN EN HOVER --- */
+        /* --- MENÚ / INFORMACIÓN ESTILO BIOS / TERMINAL --- */
         .teaser-info-overlay {
             position: absolute;
             top: 0;
@@ -108,72 +105,72 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;
-            padding: 30px;
+            padding: 20px;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.4s ease, visibility 0.4s ease;
-            background: rgba(0, 0, 0, 0.65);
-            backdrop-filter: blur(4px);
+            background: rgba(0, 0, 0, 0.85);
         }
 
+        /* Aparición tosca e instantánea (Sin suavizados modernos) */
         .tv-screen:hover .teaser-info-overlay {
             opacity: 1;
             visibility: visible;
         }
 
-        .info-card {
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            background: rgba(15, 15, 20, 0.85);
-            padding: 24px 32px;
-            border-radius: 12px;
-            max-width: 600px;
-            box-shadow: 0 0 25px rgba(0, 0, 0, 0.8);
-            transform: translateY(15px);
-            transition: transform 0.4s ease;
+        .terminal-box {
+            border: 2px dashed #00ff66;
+            background-color: #000000;
+            padding: 20px 25px;
+            max-width: 620px;
+            width: 100%;
+            box-shadow: 0 0 15px rgba(0, 255, 102, 0.2);
+            text-align: left;
         }
 
-        .tv-screen:hover .info-card {
-            transform: translateY(0);
+        .terminal-header {
+            font-family: 'VT323', monospace;
+            font-size: 1.2rem;
+            color: #00ff66;
+            border-bottom: 1px solid #00ff66;
+            padding-bottom: 5px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
         }
 
-        .info-card h2 {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 2rem;
-            font-weight: 700;
-            letter-spacing: 3px;
+        .terminal-title {
+            font-family: 'VT323', monospace;
+            font-size: 2.2rem;
             color: #ffffff;
+            letter-spacing: 2px;
             margin-bottom: 10px;
             text-transform: uppercase;
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+            text-shadow: 2px 2px #ff0055;
         }
 
-        .info-card p {
+        .terminal-body {
             font-size: 0.95rem;
-            line-height: 1.6;
-            color: #cccccc;
-            margin-bottom: 18px;
-        }
-
-        .info-meta {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 0.85rem;
-            letter-spacing: 1.5px;
-            color: #888899;
+            line-height: 1.4;
+            color: #00ff66;
+            margin-bottom: 15px;
             text-transform: uppercase;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 12px;
         }
 
-        .info-meta span {
+        .terminal-footer {
+            font-family: 'VT323', monospace;
+            font-size: 1.1rem;
+            display: flex;
+            gap: 20px;
+            color: #ff3366;
+            border-top: 1px dashed #00ff66;
+            padding-top: 8px;
+        }
+
+        .terminal-footer span {
             color: #ffffff;
-            font-weight: 600;
         }
 
-        /* Scanlines */
+        /* --- EFECTOS RETRO CRT Y SCANLINES --- */
         .tv-screen::after {
             content: " ";
             display: block;
@@ -181,77 +178,89 @@
             top: 0; left: 0; bottom: 0; right: 0;
             background: linear-gradient(
                 rgba(18, 16, 16, 0) 50%, 
-                rgba(0, 0, 0, 0.35) 50%
+                rgba(0, 0, 0, 0.5) 50%
             );
             background-size: 100% 4px;
-            z-index: 4;
+            z-index: 12;
             pointer-events: none;
-            opacity: 0.7;
+            opacity: 0.8;
         }
 
-        /* Reflejo de pantalla */
-        .tv-screen::before {
-            content: " ";
-            display: block;
+        /* Tira de interferencia que sube y baja */
+        .scanline-bar {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(
-                circle at 50% 30%, 
-                rgba(255, 255, 255, 0.04) 0%, 
-                rgba(0, 0, 0, 0.4) 90%
-            );
-            z-index: 5;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 12px;
+            background: rgba(0, 255, 102, 0.08);
+            z-index: 13;
             pointer-events: none;
+            animation: scanlineAnim 6s linear infinite;
         }
 
-        /* Detalles del televisor */
+        /* Detalles del chasis del monitor */
         .tv-details {
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
             align-items: center;
-            margin-top: 12px;
-            padding-right: 10px;
-            gap: 12px;
+            margin-top: 10px;
+            padding: 0 5px;
+            font-family: 'VT323', monospace;
+            font-size: 1rem;
+            color: #333338;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .power-led {
-            width: 8px;
-            height: 8px;
-            background-color: #ff3b30;
-            border-radius: 50%;
-            box-shadow: 0 0 8px #ff3b30;
-        }
-
-        .tv-brand {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 0.75rem;
-            color: #44444a;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            font-weight: 700;
+            width: 7px;
+            height: 7px;
+            background-color: #ff0033;
+            box-shadow: 0 0 6px #ff0033;
+            animation: blink 2s infinite steps(1);
         }
 
         /* Pie de página */
         footer {
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             text-align: center;
-            font-size: 0.85rem;
-            color: #44444e;
+            font-family: 'VT323', monospace;
+            font-size: 1.1rem;
+            color: #444444;
             letter-spacing: 1px;
         }
 
-        footer p {
-            margin-bottom: 6px;
-        }
-
         footer a {
-            color: #777788;
+            color: #00ff66;
             text-decoration: none;
-            transition: color 0.3s ease;
         }
 
         footer a:hover {
-            color: #ffffff;
+            text-decoration: underline;
+            background-color: #00ff66;
+            color: #000;
+        }
+
+        /* --- ANIMACIONES RETRO --- */
+        @keyframes crtFlicker {
+            0% { opacity: 0.97; }
+            50% { opacity: 1; }
+            100% { opacity: 0.98; }
+        }
+
+        @keyframes scanlineAnim {
+            0% { top: -10%; }
+            100% { top: 110%; }
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
         }
     </style>
 </head>
@@ -259,43 +268,55 @@
 
     <header>
         <a href="index.html">
-            <img src="Smile_indie_20260925_222557_0002.png" alt="Smile Indie Interactive Logo" class="studio-logo">
+            <img src="Smile_indie_20260925_222557_0002.png" alt="Smile Indie Interactive" class="studio-logo">
         </a>
     </header>
 
     <main>
-        <!-- Estructura de Televisor CRT Retro -->
+        <!-- Chasis del Monitor Analógico -->
         <div class="tv-frame">
             <div class="tv-screen">
-                <!-- Imagen Teaser -->
+                <!-- Barra de escaneo animada -->
+                <div class="scanline-bar"></div>
+
+                <!-- Teaser Principal -->
                 <img src="LogoV.PNG" alt="Elevator Pit Teaser">
 
-                <!-- Recuadro informativo que se despliega al pasar el cursor -->
+                <!-- HUD / Consola de Comandos en Hover -->
                 <div class="teaser-info-overlay">
-                    <div class="info-card">
-                        <h2>ELEVATOR-PIT</h2>
-                        <p>
-                            Un action roguelike 3D low-poly donde encarnas a un robot descendiendo por pisos procedimentales en las instalaciones de Azath Corporation. Enfréntate a criaturas, hackea terminales y recolecta mejoras para sobrevivir a la bajada.
-                        </p>
-                        <div class="info-meta">
-                            <div>GÉNERO: <span>ACCION / ROGUELIKE</span></div>
-                            <div>ESTADO: <span>EN DESARROLLO</span></div>
+                    <div class="terminal-box">
+                        <div class="terminal-header">
+                            <span>SYS.LOG // ARCHIVO_01</span>
+                            <span>[C:\ELEVATOR-PIT>]</span>
+                        </div>
+                        <div class="terminal-title">> ELEVATOR-PIT</div>
+                        <div class="terminal-body">
+                            SINOPSIS: ACTION ROGUELIKE 3D LOW-POLY.
+                            ENCARNAS A UN ROBOT DESCENDIENDO POR PISOS PROCEDIMENTALES EN LAS INSTALACIONES DE AZATH CORP.
+                            ENFRÉNTATE A ANOMALÍAS, HACKEA TERMINALES Y SOBREVIVE A LA BAJADA.
+                        </div>
+                        <div class="terminal-footer">
+                            <div>GÉNERO: <span>ROGUELIKE_ACCION</span></div>
+                            <div>ESTADO: <span>EN_DESARROLLO</span></div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Detalles del chasis del televisor -->
+            <!-- Panel frontal del hardware -->
             <div class="tv-details">
-                <span class="tv-brand">CRT-90</span>
-                <div class="power-led"></div>
+                <span>CHANNEL 03 // AV-1</span>
+                <div class="status-indicator">
+                    <span>SIGNAL OK</span>
+                    <div class="power-led"></div>
+                </div>
             </div>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2026 SmileIndieInteractive. All rights reserved.</p>
-        <p>Contacto: <a href="mailto:entertainmentgdt@gmail.com">entertainmentgdt@gmail.com</a></p>
+        <p>&copy; 2026 SMILE INDIE INTERACTIVE. ALL RIGHTS RESERVED.</p>
+        <p>CONTACT: <a href="mailto:entertainmentgdt@gmail.com">ENTERTAINMENTGDT@GMAIL.COM</a></p>
     </footer>
 
 </body>
