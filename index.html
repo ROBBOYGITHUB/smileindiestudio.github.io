@@ -1,323 +1,422 @@
-<!DOCTYPE html>
-<html lang="es">
+}<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smile Indie Interactive</title>
-    <!-- Fuentes retro puras desde Google Fonts -->
+    <title>Smile Indie Interactive | Independent Game Studio</title>
+    
+    <!-- Google Fonts: Montserrat (Headers) & Inter (Body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,800;0,900;1,800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
-        /* Paleta y fondo de pantalla pura de tubos Catódicos */
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            red: '#ff3838',
+                            orange: '#f97316',
+                            hover: '#e02828',
+                            bg: '#0c0d10',
+                            card: '#15171e',
+                            border: '#232733',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
         body {
-            background-color: #000000;
-            color: #00ff66; /* Verde Fósforo Clásico */
-            font-family: 'Share Tech Mono', monospace;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            min-height: 100vh;
-            padding: 15px;
-            user-select: none;
+            background-color: #0c0d10;
+            color: #d1d5db;
+            font-family: 'Inter', sans-serif;
             overflow-x: hidden;
         }
 
-        /* --- ENCABEZADO Y LOGO --- */
-        header {
-            text-align: center;
-            margin-top: 10px;
+        h1, h2, h3, h4, h5, h6, .font-heading {
+            font-family: 'Montserrat', sans-serif;
         }
 
-        .studio-logo {
-            max-width: 260px;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-            /* Leve efecto de distorsión analógica al logo */
-            filter: contrast(1.2) brightness(0.9);
-        }
-
-        /* Área principal */
-        main {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-grow: 1;
-            margin: 20px 0;
-            width: 100%;
-        }
-
-        /* --- MARCO CRT ANALÓGICO PESADO --- */
-        .tv-frame {
+        /* Steel Wool style sharp header underline */
+        .nav-link {
             position: relative;
-            max-width: 880px;
-            width: 100%;
-            background: #09090b;
-            padding: 18px 18px 28px 18px;
-            border: 4px solid #1a1a1d;
-            box-shadow: 
-                0 0 0 2px #050505,
-                inset 0 0 20px #000000;
-        }
-
-        /* Pantalla CRT con parpadeo de imagen */
-        .tv-screen {
-            position: relative;
-            width: 100%;
-            background-color: #020202;
-            border: 3px solid #111111;
-            overflow: hidden;
-            cursor: crosshair; /* Puntero estilo retro/mira */
-            animation: crtFlicker 0.15s infinite;
-        }
-
-        /* Imagen Teaser */
-        .tv-screen img {
-            width: 100%;
-            height: auto;
-            display: block;
-            filter: grayscale(20%) contrast(1.2) brightness(0.85);
-        }
-
-        /* Efecto al pasar el cursor sobre la pantalla */
-        .tv-screen:hover img {
-            filter: grayscale(80%) contrast(1.5) brightness(0.25);
-        }
-
-        /* --- MENÚ / INFORMACIÓN ESTILO BIOS / TERMINAL --- */
-        .teaser-info-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            opacity: 0;
-            visibility: hidden;
-            background: rgba(0, 0, 0, 0.85);
-        }
-
-        /* Aparición tosca e instantánea (Sin suavizados modernos) */
-        .tv-screen:hover .teaser-info-overlay {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .terminal-box {
-            border: 2px dashed #00ff66;
-            background-color: #000000;
-            padding: 20px 25px;
-            max-width: 620px;
-            width: 100%;
-            box-shadow: 0 0 15px rgba(0, 255, 102, 0.2);
-            text-align: left;
-        }
-
-        .terminal-header {
-            font-family: 'VT323', monospace;
-            font-size: 1.2rem;
-            color: #00ff66;
-            border-bottom: 1px solid #00ff66;
-            padding-bottom: 5px;
-            margin-bottom: 12px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .terminal-title {
-            font-family: 'VT323', monospace;
-            font-size: 2.2rem;
-            color: #ffffff;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
             text-transform: uppercase;
-            text-shadow: 2px 2px #ff0055;
+            font-size: 0.85rem;
+            color: #9ca3af;
+            transition: color 0.2s ease-in-out;
         }
 
-        .terminal-body {
-            font-size: 0.95rem;
-            line-height: 1.4;
-            color: #00ff66;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-        }
-
-        .terminal-footer {
-            font-family: 'VT323', monospace;
-            font-size: 1.1rem;
-            display: flex;
-            gap: 20px;
-            color: #ff3366;
-            border-top: 1px dashed #00ff66;
-            padding-top: 8px;
-        }
-
-        .terminal-footer span {
+        .nav-link:hover, .nav-link.active {
             color: #ffffff;
         }
 
-        /* --- EFECTOS RETRO CRT Y SCANLINES --- */
-        .tv-screen::after {
-            content: " ";
-            display: block;
+        .nav-link::after {
+            content: '';
             position: absolute;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(
-                rgba(18, 16, 16, 0) 50%, 
-                rgba(0, 0, 0, 0.5) 50%
-            );
-            background-size: 100% 4px;
-            z-index: 12;
-            pointer-events: none;
-            opacity: 0.8;
-        }
-
-        /* Tira de interferencia que sube y baja */
-        .scanline-bar {
-            position: absolute;
-            top: 0;
+            bottom: -6px;
             left: 0;
+            width: 0;
+            height: 3px;
+            background-color: #ff3838;
+            transition: width 0.2s ease-in-out;
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
             width: 100%;
-            height: 12px;
-            background: rgba(0, 255, 102, 0.08);
-            z-index: 13;
-            pointer-events: none;
-            animation: scanlineAnim 6s linear infinite;
         }
 
-        /* Detalles del chasis del monitor */
-        .tv-details {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 10px;
-            padding: 0 5px;
-            font-family: 'VT323', monospace;
-            font-size: 1rem;
-            color: #333338;
+        /* Direct image container styling */
+        .game-card-img {
+            transition: transform 0.4s ease;
         }
 
-        .status-indicator {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .power-led {
-            width: 7px;
-            height: 7px;
-            background-color: #ff0033;
-            box-shadow: 0 0 6px #ff0033;
-            animation: blink 2s infinite steps(1);
-        }
-
-        /* Pie de página */
-        footer {
-            margin-bottom: 10px;
-            text-align: center;
-            font-family: 'VT323', monospace;
-            font-size: 1.1rem;
-            color: #444444;
-            letter-spacing: 1px;
-        }
-
-        footer a {
-            color: #00ff66;
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-            background-color: #00ff66;
-            color: #000;
-        }
-
-        /* --- ANIMACIONES RETRO --- */
-        @keyframes crtFlicker {
-            0% { opacity: 0.97; }
-            50% { opacity: 1; }
-            100% { opacity: 0.98; }
-        }
-
-        @keyframes scanlineAnim {
-            0% { top: -10%; }
-            100% { top: 110%; }
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
+        .game-card:hover .game-card-img {
+            transform: scale(1.03);
         }
     </style>
 </head>
-<body>
+<body class="bg-brand-bg text-slate-300">
 
-    <header>
-        <a href="index.html">
-            <img src="Smile_indie_20260925_222557_0002.png" alt="Smile Indie Interactive" class="studio-logo">
-        </a>
+    <!-- 1. NAVIGATION HEADER (Steel Wool Style) -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-[#0c0d10]/95 backdrop-blur-md border-b border-brand-border">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            
+            <!-- Studio Brand Logo -->
+            <a href="#home" class="flex items-center gap-3">
+                <img src="Smile_indie_20260925_222557_0002.png" alt="Smile Indie Interactive Logo" class="h-10 w-auto object-contain" onerror="this.src='https://placehold.co/180x50/15171e/ffffff?text=SMILE+INDIE'">
+                <div class="hidden sm:flex flex-col">
+                    <span class="font-heading font-black text-xl tracking-tight text-white leading-none">SMILE INDIE</span>
+                    <span class="text-[10px] text-brand-red font-bold tracking-widest uppercase mt-0.5">INTERACTIVE</span>
+                </div>
+            </a>
+
+            <!-- Desktop Links -->
+            <nav class="hidden lg:flex items-center gap-8">
+                <a href="#home" class="nav-link active">HOME</a>
+                <a href="#games" class="nav-link">GAMES</a>
+                <a href="#gallery" class="nav-link">GALLERY</a>
+                <a href="#about" class="nav-link">ABOUT</a>
+                <a href="#news" class="nav-link">NEWS</a>
+                <a href="#contact" class="nav-link">CONTACT</a>
+            </nav>
+
+            <!-- Action Button -->
+            <div class="hidden lg:block">
+                <a href="#games" class="px-5 py-2.5 bg-brand-red hover:bg-brand-hover text-white font-heading font-extrabold text-xs tracking-wider uppercase rounded-md transition-colors shadow-lg shadow-brand-red/20">
+                    OUR GAMES
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="lg:hidden text-white text-2xl p-2" onclick="toggleMobileMenu()">
+                <i class="ph ph-list" id="menuIcon"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-brand-card border-b border-brand-border px-6 py-6 flex-col gap-4">
+            <a href="#home" onclick="toggleMobileMenu()" class="text-white font-heading font-bold uppercase text-sm py-2">HOME</a>
+            <a href="#games" onclick="toggleMobileMenu()" class="text-white font-heading font-bold uppercase text-sm py-2">GAMES</a>
+            <a href="#gallery" onclick="toggleMobileMenu()" class="text-white font-heading font-bold uppercase text-sm py-2">GALLERY</a>
+            <a href="#about" onclick="toggleMobileMenu()" class="text-white font-heading font-bold uppercase text-sm py-2">ABOUT</a>
+            <a href="#news" onclick="toggleMobileMenu()" class="text-white font-heading font-bold uppercase text-sm py-2">NEWS</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="text-white font-heading font-bold uppercase text-sm py-2">CONTACT</a>
+        </div>
     </header>
 
-    <main>
-        <!-- Chasis del Monitor Analógico -->
-        <div class="tv-frame">
-            <div class="tv-screen">
-                <!-- Barra de escaneo animada -->
-                <div class="scanline-bar"></div>
+    <!-- 2. HERO SECTION -->
+    <section id="home" class="relative min-h-screen pt-20 flex items-center justify-center overflow-hidden border-b border-brand-border">
+        <!-- Hero Background Banner -->
+        <div class="absolute inset-0 z-0">
+            <img src="LogoV.PNG" alt="Elevator Pit Banner" class="w-full h-full object-cover object-center brightness-50" onerror="this.src='https://placehold.co/1920x1080/15171e/ffffff?text=SMILE+INDIE+STUDIOS'">
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-bg via-brand-bg/60 to-transparent"></div>
+        </div>
 
-                <!-- Teaser Principal -->
-                <img src="LogoV.PNG" alt="Elevator Pit Teaser">
+        <div class="relative z-10 max-w-5xl mx-auto px-6 text-center py-20">
+            <span class="inline-block px-4 py-1.5 bg-brand-red text-white text-xs font-heading font-extrabold tracking-widest uppercase rounded mb-6">
+                INDEPENDENT GAME DEVELOPMENT STUDIO
+            </span>
+            <h1 class="font-heading font-black text-4xl sm:text-6xl md:text-7xl text-white tracking-tight uppercase leading-none mb-6">
+                WE BRING BOLD IDEAS TO LIFE
+            </h1>
+            <p class="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-10 font-medium leading-relaxed">
+                Creators of immersive gameplay, deep atmospheric worlds, and intense action experiences.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#games" class="px-8 py-4 bg-brand-red hover:bg-brand-hover text-white font-heading font-black text-sm tracking-widest uppercase rounded shadow-xl transition-all flex items-center gap-2">
+                    DISCOVER ELEVATOR PIT <i class="ph ph-arrow-right text-base"></i>
+                </a>
+                <a href="#about" class="px-8 py-4 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-heading font-black text-sm tracking-widest uppercase rounded transition-all">
+                    MEET THE STUDIO
+                </a>
+            </div>
+        </div>
+    </section>
 
-                <!-- HUD / Consola de Comandos en Hover -->
-                <div class="teaser-info-overlay">
-                    <div class="terminal-box">
-                        <div class="terminal-header">
-                            <span>SYS.LOG // ARCHIVO_01</span>
-                            <span>[C:\ELEVATOR-PIT>]</span>
+    <!-- 3. GAMES GRID / GAME SHELF -->
+    <section id="games" class="py-24 px-6 max-w-7xl mx-auto border-b border-brand-border">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 border-l-4 border-brand-red pl-6">
+            <div>
+                <span class="text-xs font-heading font-bold uppercase tracking-widest text-brand-red block mb-1">OUR PROJECTS</span>
+                <h2 class="text-3xl md:text-5xl font-heading font-black text-white uppercase tracking-tight">FEATURED GAMES</h2>
+            </div>
+            <p class="text-slate-400 text-sm max-w-md mt-4 md:mt-0">
+                Explore our portfolio of atmospheric action games built with passion and technical precision.
+            </p>
+        </div>
+
+        <!-- Main Flagship Game Card -->
+        <div class="game-card bg-brand-card border border-brand-border rounded-xl overflow-hidden mb-12 shadow-2xl">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-0">
+                <!-- Direct Image Container -->
+                <div class="lg:col-span-7 relative overflow-hidden aspect-video bg-black">
+                    <img src="LogoV.PNG" alt="Elevator Pit Artwork" class="game-card-img w-full h-full object-cover" onerror="this.src='https://placehold.co/1200x675/15171e/ffffff?text=ELEVATOR+PIT'">
+                    <div class="absolute top-4 left-4 bg-black/80 backdrop-blur-md border border-white/10 px-3 py-1 rounded text-xs font-heading font-bold text-white uppercase">
+                        FLAGSHIP TITLE
+                    </div>
+                </div>
+
+                <!-- Game Details -->
+                <div class="lg:col-span-5 p-8 flex flex-col justify-between">
+                    <div>
+                        <!-- Badges -->
+                        <div class="flex flex-wrap items-center gap-2 mb-4">
+                            <span class="px-2.5 py-1 bg-brand-red/20 border border-brand-red/40 text-brand-red text-xs font-heading font-bold uppercase rounded">3D ACTION ROGUELIKE</span>
+                            <span class="px-2.5 py-1 bg-white/10 text-white text-xs font-heading font-bold uppercase rounded">PC / STEAM</span>
+                            <span class="px-2.5 py-1 bg-white/10 text-white text-xs font-heading font-bold uppercase rounded">IN DEVELOPMENT</span>
                         </div>
-                        <div class="terminal-title">> ELEVATOR-PIT</div>
-                        <div class="terminal-body">
-                            SYNOPSIS: 3D PSX ACTION ROGUELIKE.
-                            YOU PLAY AS A ROBOT NAMED PCG.1, DESCENDING THROUGH PROCEDURAL FLOORS WITHIN THE AZATH CORP. FACILITY.
-                            FACE ANOMALIES, HACK TERMINALS, AND SURVIVE THE DESCENT INTO DARKNESS.
+
+                        <h3 class="text-3xl md:text-4xl font-heading font-black text-white uppercase mb-4">ELEVATOR PIT</h3>
+                        
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                            Descend through procedural subterranean floors within the Azath Corp. facility. Control the robotic unit <strong>PCG.1</strong> as you face lethal anomalies, hack corporate terminals, and survive the descent into darkness.
+                        </p>
+
+                        <!-- Highlights List -->
+                        <div class="space-y-3 mb-8 text-xs font-medium text-slate-400">
+                            <div class="flex items-center gap-2">
+                                <i class="ph ph-check-square text-brand-red text-base"></i>
+                                <span>Procedural Level Generation Engine</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="ph ph-check-square text-brand-red text-base"></i>
+                                <span>Interactive Command-Terminal Hacking</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="ph ph-check-square text-brand-red text-base"></i>
+                                <span>Atmospheric Retro-Futuristic Aesthetic</span>
+                            </div>
                         </div>
-                        <div class="terminal-footer">
-                            <div>GENDER: <span>ACTION_ROGUELIKE</span></div>
-                            <div>STATE: <span>DEVELOPING</span></div>
+                    </div>
+
+                    <!-- Card Footer Actions -->
+                    <div class="pt-6 border-t border-brand-border flex items-center justify-between">
+                        <div>
+                            <span class="text-[10px] text-slate-500 uppercase tracking-widest block font-bold">STATUS</span>
+                            <span class="text-xs font-bold text-white">Active Production</span>
                         </div>
+                        <a href="mailto:entertainmentgdt@gmail.com" class="px-6 py-3 bg-brand-red hover:bg-brand-hover text-white font-heading font-black text-xs uppercase tracking-wider rounded transition-colors flex items-center gap-2">
+                            PRESS ENQUIRIES <i class="ph ph-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. MEDIA / SCREENSHOT GALLERY (INLINE & DIRECT) -->
+    <section id="gallery" class="py-24 px-6 max-w-7xl mx-auto border-b border-brand-border">
+        <div class="mb-12 border-l-4 border-brand-red pl-6">
+            <span class="text-xs font-heading font-bold uppercase tracking-widest text-brand-red block mb-1">VISUAL SHOWCASE</span>
+            <h2 class="text-3xl md:text-5xl font-heading font-black text-white uppercase tracking-tight">GAME MEDIA & ARTWORK</h2>
+        </div>
+
+        <!-- Inline Direct Photo Grid (No Modals) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Media Box 1 -->
+            <div class="bg-brand-card border border-brand-border rounded-xl overflow-hidden group">
+                <div class="aspect-video relative overflow-hidden bg-black">
+                    <img src="LogoV.PNG" alt="Teaser Cover Artwork" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="this.src='https://placehold.co/800x450/15171e/ffffff?text=KEY+ARTWORK'">
+                </div>
+                <div class="p-5">
+                    <h4 class="font-heading font-bold text-white uppercase text-base mb-1">Official Key Artwork</h4>
+                    <p class="text-xs text-slate-400">Elevator Pit key teaser promotional graphic.</p>
+                </div>
+            </div>
+
+            <!-- Media Box 2 -->
+            <div class="bg-brand-card border border-brand-border rounded-xl overflow-hidden group">
+                <div class="aspect-video relative overflow-hidden bg-black">
+                    <img src="https://placehold.co/800x450/15171e/38bdf8?text=Azath+Facility+Sector" alt="Facility Environment" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                </div>
+                <div class="p-5">
+                    <h4 class="font-heading font-bold text-white uppercase text-base mb-1">Sector Environment Concept</h4>
+                    <p class="text-xs text-slate-400">Subterranean level design structure preview.</p>
+                </div>
+            </div>
+
+            <!-- Media Box 3 -->
+            <div class="bg-brand-card border border-brand-border rounded-xl overflow-hidden group">
+                <div class="aspect-video relative overflow-hidden bg-black">
+                    <img src="https://placehold.co/800x450/15171e/ff3838?text=Robot+PCG.1+Model" alt="PCG.1 Character Render" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                </div>
+                <div class="p-5">
+                    <h4 class="font-heading font-bold text-white uppercase text-base mb-1">PCG.1 Unit Design</h4>
+                    <p class="text-xs text-slate-400">3D protagonist character mesh and lighting render.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. STUDIO ABOUT & PHILOSOPHY SECTION -->
+    <section id="about" class="py-24 px-6 max-w-7xl mx-auto border-b border-brand-border">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <div class="lg:col-span-6">
+                <div class="border-l-4 border-brand-red pl-6 mb-8">
+                    <span class="text-xs font-heading font-bold uppercase tracking-widest text-brand-red block mb-1">WHO WE ARE</span>
+                    <h2 class="text-3xl md:text-5xl font-heading font-black text-white uppercase tracking-tight">LIFE AT SMILE INDIE</h2>
+                </div>
+
+                <p class="text-slate-300 text-base leading-relaxed mb-6 font-normal">
+                    Founded with a passion for original worldbuilding and immersive game mechanics, <strong>Smile Indie Interactive</strong> is an independent development studio focused on crafting memorable digital experiences.
+                </p>
+                <p class="text-slate-400 text-sm leading-relaxed mb-8">
+                    Like the developers who inspire us, we prioritize gameplay depth, artistic voice, and direct engagement with our player community.
+                </p>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-6 pt-6 border-t border-brand-border">
+                    <div>
+                        <span class="font-heading font-black text-3xl text-white block">2026</span>
+                        <span class="text-xs font-bold text-slate-500 uppercase">ESTABLISHED</span>
+                    </div>
+                    <div>
+                        <span class="font-heading font-black text-3xl text-brand-red block">PC / CONSOLE</span>
+                        <span class="text-xs font-bold text-slate-500 uppercase">FOCUS</span>
+                    </div>
+                    <div>
+                        <span class="font-heading font-black text-3xl text-white block">100%</span>
+                        <span class="text-xs font-bold text-slate-500 uppercase">INDEPENDENT</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Panel frontal del hardware -->
-            <div class="tv-details">
-                <span>CHANNEL 03 // AV-1</span>
-                <div class="status-indicator">
-                    <span>SIGNAL OK</span>
-                    <div class="power-led"></div>
+            <!-- Studio Pillar Cards -->
+            <div class="lg:col-span-6 space-y-4">
+                <div class="p-6 bg-brand-card border border-brand-border rounded-xl">
+                    <div class="flex items-center gap-4 mb-2">
+                        <i class="ph ph-game-controller text-brand-red text-3xl"></i>
+                        <h3 class="font-heading font-bold text-white uppercase text-lg">Gameplay First Design</h3>
+                    </div>
+                    <p class="text-slate-400 text-sm">Every mechanic is crafted to provide responsive control and rewarding player mastery.</p>
+                </div>
+
+                <div class="p-6 bg-brand-card border border-brand-border rounded-xl">
+                    <div class="flex items-center gap-4 mb-2">
+                        <i class="ph ph-planet text-brand-red text-3xl"></i>
+                        <h3 class="font-heading font-bold text-white uppercase text-lg">Atmospheric Worlds</h3>
+                    </div>
+                    <p class="text-slate-400 text-sm">Rich environmental narrative design that immerses players from the moment they launch.</p>
                 </div>
             </div>
         </div>
-    </main>
+    </section>
 
-    <footer>
-        <p>&copy; 2026 SMILE INDIE INTERACTIVE. ALL RIGHTS RESERVED.</p>
-        <p>CONTACT: <a href="mailto:entertainmentgdt@gmail.com">ENTERTAINMENTGDT@GMAIL.COM</a></p>
+    <!-- 6. NEWS SECTION -->
+    <section id="news" class="py-24 px-6 max-w-7xl mx-auto border-b border-brand-border">
+        <div class="mb-12 border-l-4 border-brand-red pl-6">
+            <span class="text-xs font-heading font-bold uppercase tracking-widest text-brand-red block mb-1">LATEST UPDATES</span>
+            <h2 class="text-3xl md:text-5xl font-heading font-black text-white uppercase tracking-tight">STUDIO NEWS</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <article class="p-8 bg-brand-card border border-brand-border rounded-xl">
+                <span class="text-xs font-bold text-brand-red uppercase tracking-wider block mb-2">DEVELOPMENT BLOG // 2026</span>
+                <h3 class="font-heading font-bold text-white text-xl uppercase mb-3">ANNOUNCING ELEVATOR PIT DEVELOPMENT</h3>
+                <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                    We are excited to share early development details on Elevator Pit, our upcoming 3D Action Roguelike set in the deep underground facilities of Azath Corp.
+                </p>
+                <a href="#contact" class="text-xs font-heading font-bold text-white hover:text-brand-red uppercase tracking-wider transition-colors flex items-center gap-2">
+                    READ FULL ANNOUNCEMENT <i class="ph ph-arrow-right"></i>
+                </a>
+            </article>
+
+            <article class="p-8 bg-brand-card border border-brand-border rounded-xl">
+                <span class="text-xs font-bold text-brand-red uppercase tracking-wider block mb-2">COMMUNITY UPDATES</span>
+                <h3 class="font-heading font-bold text-white text-xl uppercase mb-3">NEW MEDIA & CONCEPT REVEALS</h3>
+                <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                    Check out our newly updated media gallery section featuring concept art for protagonist PCG.1 and procedural facility level layouts.
+                </p>
+                <a href="#gallery" class="text-xs font-heading font-bold text-white hover:text-brand-red uppercase tracking-wider transition-colors flex items-center gap-2">
+                    VIEW MEDIA GALLERY <i class="ph ph-arrow-right"></i>
+                </a>
+            </article>
+        </div>
+    </section>
+
+    <!-- 7. FOOTER SECTION -->
+    <footer id="contact" class="bg-black pt-16 pb-12 px-6">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
+            
+            <div class="md:col-span-5">
+                <div class="flex items-center gap-3 mb-4">
+                    <img src="Smile_indie_20260925_222557_0002.png" alt="Smile Indie Logo" class="h-8 w-auto object-contain" onerror="this.src='https://placehold.co/140x40/15171e/ffffff?text=SMILE+INDIE'">
+                    <span class="font-heading font-black text-lg text-white">SMILE INDIE INTERACTIVE</span>
+                </div>
+                <p class="text-slate-400 text-xs leading-relaxed max-w-sm">
+                    Independent Game Development Studio. Dedicated to original game design and memorable experiences.
+                </p>
+            </div>
+
+            <div class="md:col-span-3">
+                <h4 class="font-heading font-bold text-white uppercase text-xs tracking-widest mb-4">NAVIGATION</h4>
+                <ul class="space-y-2 text-xs font-bold text-slate-400 uppercase">
+                    <li><a href="#home" class="hover:text-white transition-colors">HOME</a></li>
+                    <li><a href="#games" class="hover:text-white transition-colors">GAMES</a></li>
+                    <li><a href="#gallery" class="hover:text-white transition-colors">GALLERY</a></li>
+                    <li><a href="#about" class="hover:text-white transition-colors">ABOUT</a></li>
+                </ul>
+            </div>
+
+            <div class="md:col-span-4">
+                <h4 class="font-heading font-bold text-white uppercase text-xs tracking-widest mb-4">CONTACT & PRESS</h4>
+                <a href="mailto:entertainmentgdt@gmail.com" class="text-sm text-brand-red font-bold hover:underline block mb-2">
+                    entertainmentgdt@gmail.com
+                </a>
+                <p class="text-xs text-slate-500">
+                    For press inquiries, business contacts, or gameplay support.
+                </p>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto pt-8 border-t border-brand-border flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-medium text-slate-500">
+            <p>&copy; 2026 SMILE INDIE INTERACTIVE. ALL RIGHTS RESERVED.</p>
+            <p class="uppercase font-bold tracking-widest text-[10px]">DESIGNED IN STEEL WOOL STUDIOS STYLE</p>
+        </div>
     </footer>
 
+    <!-- Mobile Drawer Script -->
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex');
+    </script>
 </body>
 </html>
