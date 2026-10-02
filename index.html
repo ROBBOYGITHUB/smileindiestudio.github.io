@@ -1,378 +1,648 @@
 <!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smile Indie Interactive</title>
+    <title>Smile Indie Interactive - Windows 7 Edition</title>
     
-    <!-- Google Fonts: Montserrat (Headers) & Inter (Body) -->
+    <!-- Google Fonts: Segoe UI style look using Inter/Nunito/Tahoma fallback -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,800;0,900;1,800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Icons -->
+    <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        heading: ['Montserrat', 'sans-serif'],
-                    },
-                    colors: {
-                        brand: {
-                            red: '#ff3838',
-                            orange: '#f97316',
-                            hover: '#e02828',
-                            bg: '#0c0d10',
-                            card: '#15171e',
-                            border: '#232733',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
 
     <style>
+        :root {
+            --aero-blue: rgba(180, 218, 252, 0.45);
+            --aero-border: rgba(255, 255, 255, 0.6);
+            --aero-shadow: rgba(0, 20, 50, 0.35);
+            --win-bg: #f0f0f0;
+        }
+
         body {
-            background-color: #0c0d10;
-            color: #d1d5db;
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop') center/cover no-repeat fixed;
+            height: 100vh;
+            overflow: hidden;
+            user-select: none;
         }
 
-        h1, h2, h3, h4, h5, h6, .font-heading {
-            font-family: 'Montserrat', sans-serif;
+        /* Default Windows 7 Aero Wallpaper fallback gradient if image fails */
+        .aero-wallpaper {
+            background: radial-gradient(circle at 50% 30%, #3a88d1 0%, #0d4b8f 50%, #051d3b 100%);
         }
 
-        /* Header completamente negro para integración transparente del logo */
-        header.site-header {
-            background-color: #000000 !important;
-            backdrop-filter: none !important;
-            -webkit-backdrop-filter: none !important;
+        .aero-glass {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, rgba(200, 225, 255, 0.25) 50%, rgba(150, 190, 240, 0.35) 100%);
+            backdrop-filter: blur(12px) saturate(160%);
+            -webkit-backdrop-filter: blur(12px) saturate(160%);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 8px 8px 4px 4px;
+            box-shadow: 
+                0 10px 30px var(--aero-shadow),
+                inset 0 1px 1px rgba(255, 255, 255, 0.9),
+                inset 0 -1px 2px rgba(0, 0, 0, 0.2);
         }
 
-        /* Steel Wool style sharp header underline */
-        .nav-link {
-            position: relative;
-            font-weight: 700;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            color: #9ca3af;
-            transition: color 0.2s ease-in-out;
+        .aero-window-header {
+            background: linear-gradient(to bottom, 
+                rgba(255, 255, 255, 0.6) 0%, 
+                rgba(220, 235, 255, 0.4) 40%, 
+                rgba(170, 210, 255, 0.3) 50%, 
+                rgba(190, 220, 255, 0.5) 100%);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+            border-radius: 7px 7px 0 0;
+            text-shadow: 0 0 6px rgba(255, 255, 255, 0.9), 0 0 10px rgba(255, 255, 255, 0.8);
         }
 
-        .nav-link:hover, .nav-link.active {
-            color: #ffffff;
+        /* Windows 7 Window Controls */
+        .win-btn {
+            width: 28px;
+            height: 19px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0 0 3px 3px;
+            font-size: 10px;
+            font-weight: bold;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 1px 2px rgba(0,0,0,0.2);
+            border: 1px solid rgba(0, 0, 0, 0.3);
+            transition: all 0.15s ease;
         }
 
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -6px;
-            left: 0;
-            width: 0;
-            height: 3px;
-            background-color: #ff3838;
-            transition: width 0.2s ease-in-out;
+        .win-btn-minimize, .win-btn-maximize {
+            background: linear-gradient(to bottom, #e1e9f2 0%, #adbeee 50%, #8ca6e6 51%, #cbd9f5 100%);
+            color: #1e395b;
         }
 
-        .nav-link:hover::after, .nav-link.active::after {
-            width: 100%;
+        .win-btn-minimize:hover, .win-btn-maximize:hover {
+            background: linear-gradient(to bottom, #f2f7ff 0%, #c8d7f9 50%, #a0bbf8 51%, #e0ebff 100%);
+            box-shadow: 0 0 6px rgba(100, 160, 255, 0.8);
         }
 
-        /* Direct image container styling */
-        .game-card-img {
-            transition: transform 0.4s ease;
+        .win-btn-close {
+            background: linear-gradient(to bottom, #fcc8c8 0%, #e87070 50%, #d13232 51%, #f48a8a 100%);
+            color: white;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.5);
+            border-color: #8a1818;
         }
 
-        .game-card:hover .game-card-img {
-            transform: scale(1.03);
+        .win-btn-close:hover {
+            background: linear-gradient(to bottom, #ffafaf 0%, #f74343 50%, #e01212 51%, #ff7070 100%);
+            box-shadow: 0 0 8px rgba(255, 50, 50, 0.9);
+        }
+
+        /* Glossy Aero Buttons */
+        .aero-button {
+            background: linear-gradient(to bottom, 
+                #ffffff 0%, 
+                #f2f5f8 48%, 
+                #e1e6ec 49%, 
+                #e7ecf2 100%);
+            border: 1px solid #707070;
+            border-radius: 3px;
+            box-shadow: inset 0 1px 0 #ffffff, 0 1px 2px rgba(0,0,0,0.15);
+            color: #1e293b;
+            font-weight: 600;
+            text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+            transition: all 0.15s ease;
+        }
+
+        .aero-button:hover {
+            border-color: #3c7fb1;
+            background: linear-gradient(to bottom, 
+                #eaf6fd 0%, 
+                #d9f0fc 48%, 
+                #bee6fd 49%, 
+                #a7d9f5 100%);
+            box-shadow: inset 0 0 2px #ffffff, 0 0 5px rgba(60, 127, 177, 0.6);
+        }
+
+        .aero-button-primary {
+            background: linear-gradient(to bottom, 
+                #fce4e4 0%, 
+                #f8a3a3 48%, 
+                #e63838 49%, 
+                #ff5252 100%);
+            border: 1px solid #a81c1c;
+            color: white;
+            text-shadow: 0 -1px 1px rgba(0,0,0,0.4);
+        }
+
+        .aero-button-primary:hover {
+            background: linear-gradient(to bottom, 
+                #ffefef 0%, 
+                #ffb8b8 48%, 
+                #ff2424 49%, 
+                #ff6868 100%);
+            box-shadow: 0 0 8px rgba(255, 56, 56, 0.7);
+        }
+
+        .aero-taskbar {
+            background: linear-gradient(to bottom, 
+                rgba(20, 45, 75, 0.75) 0%, 
+                rgba(10, 25, 45, 0.85) 50%, 
+                rgba(5, 15, 30, 0.9) 100%);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border-top: 1px solid rgba(255, 255, 255, 0.35);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        /* Windows 7 Orb / Start Button */
+        .start-orb {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #5ac2f7 0%, #186fbf 50%, #0d386b 100%);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 
+                0 0 8px rgba(0, 150, 255, 0.8),
+                inset 0 2px 3px rgba(255, 255, 255, 0.8),
+                inset 0 -2px 4px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .start-orb:hover {
+            box-shadow: 
+                0 0 15px rgba(50, 200, 255, 1),
+                inset 0 2px 5px rgba(255, 255, 255, 1),
+                inset 0 -2px 4px rgba(0, 0, 0, 0.5);
+            transform: scale(1.05);
+        }
+
+        /* Taskbar Items */
+        .taskbar-item {
+            background: linear-gradient(to bottom, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 50%, rgba(0,0,0,0.1) 51%, rgba(255,255,255,0.15) 100%);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 3px;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
+            transition: all 0.15s ease;
+        }
+
+        .taskbar-item:hover, .taskbar-item.active {
+            background: linear-gradient(to bottom, rgba(255,255,255,0.4) 0%, rgba(200,230,255,0.3) 50%, rgba(100,180,255,0.4) 51%, rgba(180,220,255,0.5) 100%);
+            border-color: rgba(255,255,255,0.7);
+            box-shadow: 0 0 8px rgba(120, 200, 255, 0.6);
+        }
+
+        /* Start Menu Popup */
+        .start-menu {
+            background: linear-gradient(135deg, rgba(230, 240, 250, 0.95) 0%, rgba(210, 225, 245, 0.95) 100%);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 8px 8px 0 0;
+            box-shadow: 0 -5px 25px rgba(0,0,0,0.5);
+        }
+
+        /* Inner Content Window Styling */
+        .win-content {
+            background: #ffffff;
+            border: 1px solid #8e9bb0;
+            box-shadow: inset 0 0 4px rgba(0,0,0,0.1);
+        }
+
+        /* Custom Scrollbar Aero Style */
+        ::-webkit-scrollbar {
+            width: 14px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-left: 1px solid #d9d9d9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to right, #cdcdcd 0%, #eaeaea 50%, #bcbcbc 100%);
+            border: 1px solid #999;
+            border-radius: 2px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to right, #b5d3e7 0%, #e2f0fb 50%, #9bc3e2 100%);
+            border-color: #3c7fb1;
+        }
+
+        /* Desktop Icons */
+        .desktop-icon {
+            width: 80px;
+            padding: 8px 4px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            transition: all 0.15s ease;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+        }
+        .desktop-icon:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
         }
     </style>
 </head>
-<body class="bg-brand-bg text-slate-300">
+<body class="aero-wallpaper relative flex flex-col justify-between">
 
-    <!-- 1. NAVIGATION HEADER (Steel Wool Style - Fondo Negro Puro) -->
-    <header class="site-header fixed top-0 left-0 w-full z-50 bg-black border-b border-brand-border">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+    <!-- DESKTOP ICONS (Top Left) -->
+    <div class="absolute top-4 left-4 z-10 flex flex-col gap-4">
+        <div onclick="openWindow('main-window')" class="desktop-icon flex flex-col items-center text-center cursor-pointer">
+            <div class="w-12 h-12 bg-white/20 rounded-lg p-1 border border-white/40 shadow-lg flex items-center justify-center mb-1 backdrop-blur-sm">
+                <img src="Smile_indie_20260925_222557_0002.png" alt="Studio" class="max-h-full max-w-full object-contain" onerror="this.src='https://placehold.co/48x48/186fbf/ffffff?text=SI'">
+            </div>
+            <span class="text-white text-xs font-semibold leading-tight">Smile Indie Studio</span>
+        </div>
+
+        <div onclick="openWindow('game-window')" class="desktop-icon flex flex-col items-center text-center cursor-pointer">
+            <div class="w-12 h-12 bg-black/40 rounded-lg p-1 border border-white/40 shadow-lg flex items-center justify-center mb-1 backdrop-blur-sm">
+                <i class="ph ph-game-controller text-3xl text-red-500"></i>
+            </div>
+            <span class="text-white text-xs font-semibold leading-tight">Elevator Pit.exe</span>
+        </div>
+
+        <div onclick="openWindow('about-window')" class="desktop-icon flex flex-col items-center text-center cursor-pointer">
+            <div class="w-12 h-12 bg-blue-600/30 rounded-lg p-1 border border-white/40 shadow-lg flex items-center justify-center mb-1 backdrop-blur-sm">
+                <i class="ph ph-info text-3xl text-cyan-300"></i>
+            </div>
+            <span class="text-white text-xs font-semibold leading-tight">About Us.txt</span>
+        </div>
+    </div>
+
+    <!-- MAIN WINDOW MANAGER AREA -->
+    <main class="relative flex-1 p-2 md:p-6 overflow-y-auto z-20 pb-16 flex items-center justify-center">
+
+        <!-- 1. MAIN STUDIO WINDOW (Aero Glass Window) -->
+        <div id="main-window" class="aero-glass w-full max-w-5xl my-auto transition-all duration-300">
             
-            <!-- Studio Brand Logo -->
-            <a href="#home" class="flex items-center gap-3">
-                <img src="Smile_indie_20260925_222557_0002.png" alt="Smile Indie Interactive Logo" class="h-10 w-auto object-contain bg-transparent" onerror="this.src='https://placehold.co/180x50/000000/ffffff?text=SMILE+INDIE'">
-                <div class="hidden sm:flex flex-col">
-                    <span class="font-heading font-black text-xl tracking-tight text-white leading-none">SMILE INDIE</span>
-                    <span class="text-[10px] text-brand-red font-bold tracking-widest uppercase mt-0.5">INTERACTIVE</span>
+            <!-- Titlebar -->
+            <div class="aero-window-header px-3 py-1.5 flex items-center justify-between cursor-move">
+                <div class="flex items-center gap-2">
+                    <img src="Smile_indie_20260925_222557_0002.png" class="h-4 w-auto" onerror="this.src='https://placehold.co/16x16/000000/ffffff?text=S'">
+                    <span class="text-xs font-bold text-slate-800 tracking-wide">C:\SmileIndieInteractive\Home.exe</span>
                 </div>
-            </a>
-
-            <!-- Desktop Links -->
-            <nav class="hidden lg:flex items-center gap-8">
-                <a href="#home" class="nav-link active">HOME</a>
-                <a href="#games" class="nav-link">GAMES</a>
-                <a href="#about" class="nav-link">ABOUT</a>
-                <a href="#news" class="nav-link">NEWS</a>
-                <a href="#contact" class="nav-link">CONTACT</a>
-            </nav>
-
-            <!-- Action Button -->
-            <div class="hidden lg:block">
-                <a href="#games" class="px-5 py-2.5 bg-brand-red hover:bg-brand-hover text-white font-heading font-extrabold text-xs tracking-wider uppercase rounded-md transition-colors shadow-lg shadow-brand-red/20">
-                    OUR GAMES
-                </a>
+                <div class="flex items-center gap-1">
+                    <button onclick="minimizeWindow('main-window')" class="win-btn win-btn-minimize" title="Minimize">—</button>
+                    <button class="win-btn win-btn-maximize" title="Maximize">▢</button>
+                    <button onclick="closeWindow('main-window')" class="win-btn win-btn-close" title="Close">✕</button>
+                </div>
             </div>
 
-            <!-- Mobile Menu Button -->
-            <button class="lg:hidden text-white text-2xl p-2" onclick="toggleMobileMenu()" aria-label="Toggle Navigation Menu">
-                <i class="ph ph-list" id="menuIcon"></i>
+            <!-- Aero Menu Toolbar -->
+            <div class="bg-gradient-to-b from-slate-100 to-slate-200 border-b border-slate-300 px-3 py-1 flex items-center gap-4 text-xs font-semibold text-slate-700">
+                <button onclick="scrollToSection('hero-sec')" class="hover:text-blue-600">Home</button>
+                <button onclick="openWindow('game-window')" class="hover:text-blue-600">Games</button>
+                <button onclick="openWindow('about-window')" class="hover:text-blue-600">About Studio</button>
+                <button onclick="scrollToSection('news-sec')" class="hover:text-blue-600">Latest News</button>
+                <a href="mailto:entertainmentgdt@gmail.com" class="hover:text-blue-600">Contact</a>
+            </div>
+
+            <!-- Window Content Inner Frame -->
+            <div class="p-3 md:p-6 bg-slate-100 text-slate-800 max-h-[80vh] overflow-y-auto">
+                
+                <!-- Hero Banner Box inside Window -->
+                <div id="hero-sec" class="bg-gradient-to-r from-red-700 via-red-600 to-red-800 text-white rounded-md p-6 shadow-md border border-red-900 mb-6 relative overflow-hidden">
+                    <div class="relative z-10">
+                        <span class="bg-black/60 text-white text-[10px] font-bold px-2.5 py-1 rounded border border-white/20 uppercase tracking-widest inline-block mb-3">
+                            INDEPENDENT GAME DEVELOPMENT STUDIO
+                        </span>
+                        <h1 class="text-3xl sm:text-5xl font-extrabold uppercase tracking-tight mb-2 text-shadow">
+                            SMILE INDIE INTERACTIVE
+                        </h1>
+                        <p class="text-red-100 text-sm max-w-xl mb-6">
+                            Crafting unique, atmospheric, and high-intensity indie gaming experiences for PC.
+                        </p>
+                        <div class="flex flex-wrap gap-3">
+                            <button onclick="openWindow('game-window')" class="aero-button aero-button-primary px-4 py-2 text-xs flex items-center gap-2">
+                                <img src="LogoV.PNG" alt="Elevator Pit Logo" class="h-4 w-auto object-contain" onerror="this.src='https://placehold.co/20x20/ff3838/ffffff?text=EP'">
+                                DISCOVER ELEVATOR PIT
+                            </button>
+                            <button onclick="openWindow('about-window')" class="aero-button px-4 py-2 text-xs">
+                                MEET THE STUDIO
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FEATURED GAME SECTION (Elevator Pit) -->
+                <div id="elevator-pit-card" class="bg-white border border-slate-300 rounded-md shadow-sm p-4 mb-6">
+                    <div class="flex items-center justify-between border-b border-slate-200 pb-2 mb-4">
+                        <span class="text-xs font-bold text-red-600 uppercase tracking-wider flex items-center gap-1">
+                            <i class="ph ph-star-fill"></i> Flagship Title
+                        </span>
+                        <span class="text-xs text-slate-500 font-medium">Windows 7 Compatible</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                        <!-- Enlarged Elevator Pit Logo Box (Without White Line / Dark Theme Frame) -->
+                        <div class="lg:col-span-7 bg-black rounded-md p-4 border border-slate-800 flex items-center justify-center min-h-[260px] shadow-inner relative group">
+                            <img src="LogoV.PNG" alt="Elevator Pit" class="max-h-64 w-auto object-contain transition-transform duration-300 group-hover:scale-105" onerror="this.src='https://placehold.co/600x300/000000/ff3838?text=ELEVATOR+PIT'">
+                        </div>
+
+                        <!-- Game Details Column -->
+                        <div class="lg:col-span-5 flex flex-col justify-between">
+                            <div>
+                                <div class="flex flex-wrap gap-1.5 mb-3">
+                                    <span class="bg-red-100 text-red-700 border border-red-300 text-[10px] font-bold px-2 py-0.5 rounded">3D ACTION ROGUELIKE</span>
+                                    <span class="bg-slate-200 text-slate-700 text-[10px] font-bold px-2 py-0.5 rounded">PC / STEAM</span>
+                                    <span class="bg-blue-100 text-blue-700 border border-blue-300 text-[10px] font-bold px-2 py-0.5 rounded">IN DEVELOPMENT</span>
+                                </div>
+
+                                <h2 class="text-2xl font-black text-slate-900 uppercase mb-2">ELEVATOR PIT</h2>
+                                <p class="text-slate-600 text-xs leading-relaxed mb-4">
+                                    Descend through procedural subterranean floors within the Azath Corp. facility. Control the robotic unit <strong>PCG.1</strong> as you face lethal anomalies, hack corporate terminals, and survive the descent into darkness.
+                                </p>
+
+                                <ul class="space-y-1.5 text-xs text-slate-700 font-medium mb-6">
+                                    <li class="flex items-center gap-2">
+                                        <i class="ph ph-check-circle text-red-600"></i> Procedural Level Generation Engine
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <i class="ph ph-check-circle text-red-600"></i> Interactive Command-Terminal Hacking
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <i class="ph ph-check-circle text-red-600"></i> Style PSX
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="pt-4 border-t border-slate-200 flex items-center justify-between">
+                                <div>
+                                    <span class="text-[10px] text-slate-400 font-bold block uppercase">STATUS</span>
+                                    <span class="text-xs font-bold text-emerald-600">Active Production</span>
+                                </div>
+                                <a href="mailto:entertainmentgdt@gmail.com" class="aero-button aero-button-primary px-4 py-2 text-xs flex items-center gap-1.5">
+                                    <i class="ph ph-envelope"></i> CONTACT
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TWO COLUMN GRID: ABOUT & NEWS -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="news-sec">
+                    
+                    <!-- About Card -->
+                    <div class="bg-white border border-slate-300 rounded-md p-4 shadow-sm">
+                        <h3 class="font-bold text-sm text-slate-800 uppercase mb-3 flex items-center gap-2 border-b pb-2">
+                            <i class="ph ph-buildings text-blue-600"></i> About Smile Indie Interactive
+                        </h3>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            Founded in 2026, Smile Indie Interactive is a 100% independent development studio focused on crafting memorable digital experiences with gameplay depth and direct player connection.
+                        </p>
+                        <div class="grid grid-cols-3 gap-2 text-center bg-slate-50 p-2 rounded border border-slate-200">
+                            <div>
+                                <span class="block text-lg font-black text-slate-800">2026</span>
+                                <span class="text-[9px] font-bold text-slate-400">FOUNDED</span>
+                            </div>
+                            <div>
+                                <span class="block text-lg font-black text-red-600">PC</span>
+                                <span class="text-[9px] font-bold text-slate-400">PLATFORM</span>
+                            </div>
+                            <div>
+                                <span class="block text-lg font-black text-blue-600">100%</span>
+                                <span class="text-[9px] font-bold text-slate-400">INDIE</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Latest News Card -->
+                    <div class="bg-white border border-slate-300 rounded-md p-4 shadow-sm">
+                        <h3 class="font-bold text-sm text-slate-800 uppercase mb-3 flex items-center gap-2 border-b pb-2">
+                            <i class="ph ph-newspaper text-red-600"></i> Latest Updates
+                        </h3>
+                        <div class="space-y-3">
+                            <div>
+                                <span class="text-[10px] font-bold text-red-600 uppercase">Dev Blog // 2026</span>
+                                <h4 class="text-xs font-bold text-slate-900">Elevator Pit Development Announced</h4>
+                                <p class="text-[11px] text-slate-500">Early development is underway for our flagship 3D Action Roguelike.</p>
+                            </div>
+                            <div class="border-t border-slate-100 pt-2">
+                                <span class="text-[10px] font-bold text-blue-600 uppercase">Community</span>
+                                <h4 class="text-xs font-bold text-slate-900">PCG.1 Concept Art Released</h4>
+                                <p class="text-[11px] text-slate-500">Check out protagonist designs and subterranean level layouts.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Windows 7 Statusbar Footer -->
+            <div class="bg-slate-200 border-t border-slate-300 px-3 py-1 flex items-center justify-between text-[11px] text-slate-600">
+                <span>&copy; 2026 SMILE INDIE INTERACTIVE. All rights reserved.</span>
+                <span class="font-bold text-slate-700">:D</span>
+            </div>
+
+        </div>
+
+        <!-- 2. GAME POPUP WINDOW (Secondary Windows 7 Window) -->
+        <div id="game-window" class="aero-glass w-full max-w-2xl my-auto hidden transition-all duration-300 absolute z-30">
+            <div class="aero-window-header px-3 py-1.5 flex items-center justify-between cursor-move">
+                <div class="flex items-center gap-2">
+                    <img src="LogoV.PNG" class="h-4 w-auto object-contain" onerror="this.src='https://placehold.co/16x16/ff3838/ffffff?text=EP'">
+                    <span class="text-xs font-bold text-slate-800">ElevatorPit_Preview.exe</span>
+                </div>
+                <div class="flex items-center gap-1">
+                    <button onclick="closeWindow('game-window')" class="win-btn win-btn-minimize" title="Minimize">—</button>
+                    <button class="win-btn win-btn-close" onclick="closeWindow('game-window')" title="Close">✕</button>
+                </div>
+            </div>
+            <div class="p-6 bg-black text-white text-center rounded-b-md">
+                <div class="bg-black/90 p-4 rounded-lg border border-slate-800 mb-4 inline-block max-w-full">
+                    <img src="LogoV.PNG" alt="Elevator Pit Logo" class="max-h-56 max-w-full mx-auto object-contain shadow-2xl" onerror="this.src='https://placehold.co/400x200/000000/ff3838?text=ELEVATOR+PIT'">
+                </div>
+                <h3 class="text-xl font-bold text-red-500 uppercase tracking-wide">ELEVATOR PIT</h3>
+                <p class="text-xs text-slate-300 max-w-md mx-auto my-3 leading-relaxed">
+                    Control PCG.1, hack terminals, face lethal anomalies, and survive the subterranean descent into darkness.
+                </p>
+                <div class="mt-5 flex justify-center gap-3">
+                    <a href="mailto:entertainmentgdt@gmail.com" class="aero-button aero-button-primary px-5 py-2 text-xs flex items-center gap-1.5">
+                        <i class="ph ph-envelope"></i> Contact Studio
+                    </a>
+                    <button onclick="closeWindow('game-window')" class="aero-button px-5 py-2 text-xs">Close</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. ABOUT POPUP WINDOW -->
+        <div id="about-window" class="aero-glass w-full max-w-md my-auto hidden transition-all duration-300 absolute z-30">
+            <div class="aero-window-header px-3 py-1.5 flex items-center justify-between cursor-move">
+                <div class="flex items-center gap-2">
+                    <i class="ph ph-info text-blue-600"></i>
+                    <span class="text-xs font-bold text-slate-800">System Info - Smile Indie</span>
+                </div>
+                <div class="flex items-center gap-1">
+                    <button onclick="closeWindow('about-window')" class="win-btn win-btn-close">✕</button>
+                </div>
+            </div>
+            <div class="p-4 bg-slate-100 text-slate-800 text-xs">
+                <div class="flex items-center gap-3 mb-3 border-b pb-3">
+                    <img src="Smile_indie_20260925_222557_0002.png" class="h-10 w-auto" onerror="this.src='https://placehold.co/40x40/000000/ffffff?text=SI'">
+                    <div>
+                        <h4 class="font-bold text-sm">Smile Indie Interactive</h4>
+                        <span class="text-slate-500 text-[10px]">Independent Studio OS v2026</span>
+                    </div>
+                </div>
+                <p class="mb-3 leading-relaxed">Dedicated to original worldbuilding, atmospheric design, and high quality indie game experiences.</p>
+                <p class="font-bold">Contact: <a href="mailto:entertainmentgdt@gmail.com" class="text-blue-600 hover:underline">entertainmentgdt@gmail.com</a></p>
+                <div class="mt-4 text-right">
+                    <button onclick="closeWindow('about-window')" class="aero-button px-4 py-1 text-xs">OK</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- START MENU DRAWER -->
+    <div id="start-menu" class="start-menu fixed bottom-12 left-2 w-80 z-50 hidden flex-col overflow-hidden">
+        <!-- Start Menu Header User Info -->
+        <div class="bg-gradient-to-r from-blue-700 to-blue-900 p-3 flex items-center gap-3 text-white border-b border-blue-400">
+            <div class="w-10 h-10 rounded border-2 border-white/80 bg-black/40 flex items-center justify-center p-0.5">
+                <img src="Smile_indie_20260925_222557_0002.png" class="max-h-full" onerror="this.src='https://placehold.co/32x32/000000/ffffff?text=SI'">
+            </div>
+            <div>
+                <span class="font-bold text-sm block">Smile Indie User</span>
+                <span class="text-[10px] text-blue-200">Developer Edition</span>
+            </div>
+        </div>
+
+        <!-- Start Menu Links Grid -->
+        <div class="grid grid-cols-12 bg-slate-100 text-xs text-slate-800">
+            <!-- Left Panel -->
+            <div class="col-span-7 p-2 space-y-1 bg-white border-r border-slate-300">
+                <button onclick="openWindow('main-window'); toggleStartMenu();" class="w-full text-left px-2 py-1.5 hover:bg-blue-100 rounded flex items-center gap-2">
+                    <i class="ph ph-house text-blue-600 text-base"></i>
+                    <span class="font-medium">Studio Home</span>
+                </button>
+                <button onclick="openWindow('game-window'); toggleStartMenu();" class="w-full text-left px-2 py-1.5 hover:bg-blue-100 rounded flex items-center gap-2">
+                    <i class="ph ph-game-controller text-red-600 text-base"></i>
+                    <span class="font-medium">Elevator Pit</span>
+                </button>
+                <button onclick="openWindow('about-window'); toggleStartMenu();" class="w-full text-left px-2 py-1.5 hover:bg-blue-100 rounded flex items-center gap-2">
+                    <i class="ph ph-info text-cyan-600 text-base"></i>
+                    <span class="font-medium">About Studio</span>
+                </button>
+            </div>
+
+            <!-- Right Panel -->
+            <div class="col-span-5 p-2 space-y-1 bg-slate-200/80 font-medium text-[11px] text-slate-700">
+                <a href="mailto:entertainmentgdt@gmail.com" class="block px-2 py-1 hover:bg-blue-200 rounded">Support Mail</a>
+                <a href="#news" onclick="openWindow('main-window'); toggleStartMenu();" class="block px-2 py-1 hover:bg-blue-200 rounded">News Updates</a>
+            </div>
+        </div>
+
+        <!-- Start Menu Bottom Power Strip -->
+        <div class="bg-gradient-to-r from-slate-300 to-slate-400 p-2 flex justify-end items-center border-t border-slate-300">
+            <button onclick="toggleStartMenu()" class="aero-button px-3 py-1 text-xs flex items-center gap-1 text-slate-800 font-bold">
+                <i class="ph ph-power text-red-600"></i> Shut Down
             </button>
         </div>
+    </div>
 
-        <!-- Mobile Drawer -->
-        <div id="mobileMenu" class="hidden lg:hidden bg-black border-b border-brand-border px-6 py-6 flex-col gap-4">
-            <a href="#home" onclick="toggleMobileMenu()" class="text-white font-heading font-bold uppercase text-sm py-2">HOME</a>
-            <a href="#games" onclick="toggleMobileMenu()" class="text-white font-heading font-bold uppercase text-sm py-2">GAMES</a>
-            <a href="#about" onclick="toggleMobileMenu()" class="text-white font-heading font-bold uppercase text-sm py-2">ABOUT</a>
-            <a href="#news" onclick="toggleMobileMenu()" class="text-white font-heading font-bold uppercase text-sm py-2">NEWS</a>
-            <a href="#contact" onclick="toggleMobileMenu()" class="text-white font-heading font-bold uppercase text-sm py-2">CONTACT</a>
+    <!-- WINDOWS 7 TASKBAR -->
+    <footer class="aero-taskbar fixed bottom-0 left-0 w-full h-11 z-50 flex items-center justify-between px-2">
+        
+        <!-- Start Orb & Quick Launch -->
+        <div class="flex items-center gap-2">
+            <!-- Windows 7 Start Orb Button -->
+            <button onclick="toggleStartMenu()" class="start-orb flex items-center justify-center" title="Start Menu">
+                <div class="w-4 h-4 grid grid-cols-2 gap-0.5 transform rotate-45">
+                    <div class="bg-red-500 rounded-tl"></div>
+                    <div class="bg-green-500 rounded-tr"></div>
+                    <div class="bg-blue-500 rounded-bl"></div>
+                    <div class="bg-yellow-400 rounded-br"></div>
+                </div>
+            </button>
+
+            <!-- Taskbar Items -->
+            <div class="flex items-center gap-1 ml-2">
+                <button onclick="openWindow('main-window')" class="taskbar-item active px-3 py-1 text-xs text-white font-bold flex items-center gap-2">
+                    <img src="Smile_indie_20260925_222557_0002.png" class="h-4 w-auto" onerror="this.src='https://placehold.co/16x16/ffffff/000000?text=S'">
+                    <span class="hidden sm:inline">Smile Indie Studio</span>
+                </button>
+
+                <button onclick="openWindow('game-window')" class="taskbar-item px-3 py-1 text-xs text-white font-bold flex items-center gap-2">
+                    <i class="ph ph-game-controller text-red-400"></i>
+                    <span class="hidden sm:inline">Elevator Pit</span>
+                </button>
+            </div>
         </div>
-    </header>
 
-    <!-- 2. HERO SECTION (Fondo Rojo Sólido) -->
-    <section id="home" class="relative min-h-screen pt-20 flex items-center justify-center overflow-hidden border-b border-brand-border bg-brand-red">
-
-        <div class="relative z-10 max-w-5xl mx-auto px-6 text-center py-20">
-            <span class="inline-block px-4 py-1.5 bg-black text-white text-xs font-heading font-extrabold tracking-widest uppercase rounded mb-6">
-                INDEPENDENT GAME DEVELOPMENT STUDIO
-            </span>
-            <h1 class="font-heading font-black text-4xl sm:text-6xl md:text-7xl text-white tracking-tight uppercase leading-none mb-6">
-                SMILE INDIE INTERACTIVE
-            </h1>
-            <p class="text-lg md:text-xl text-white/90 max-w-2xl mx-auto mb-10 font-medium leading-relaxed">
-                ---
-            </p>
+        <!-- System Tray & Clock -->
+        <div class="flex items-center gap-3 pr-1 text-white text-xs font-semibold">
+            <div class="hidden md:flex items-center gap-2 text-slate-300 text-sm">
+                <i class="ph ph-wifi-high" title="Network connected"></i>
+                <i class="ph ph-speaker-high" title="Volume"></i>
+            </div>
             
-            <div class="flex flex-wrap justify-center gap-4">
-                <a href="#games" class="px-8 py-4 bg-black hover:bg-neutral-900 text-white font-heading font-black text-sm tracking-widest uppercase rounded shadow-xl transition-all flex items-center gap-2">
-                    DISCOVER ELEVATOR PIT <i class="ph ph-arrow-right text-base"></i>
-                </a>
-                <a href="#about" class="px-8 py-4 bg-white/20 hover:bg-white/30 border border-white/30 text-white font-heading font-black text-sm tracking-widest uppercase rounded transition-all">
-                    MEET THE STUDIO
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- 3. GAMES GRID / GAME SHELF -->
-    <section id="games" class="py-24 px-6 max-w-7xl mx-auto border-b border-brand-border">
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 border-l-4 border-brand-red pl-6">
-            <div>
-                <span class="text-xs font-heading font-bold uppercase tracking-widest text-brand-red block mb-1">OUR PROJECTS</span>
-                <h2 class="text-3xl md:text-5xl font-heading font-black text-white uppercase tracking-tight">FEATURED GAMES</h2>
-            </div>
-            <p class="text-slate-400 text-sm max-w-md mt-4 md:mt-0">
-                Explore our portfolio.
-            </p>
-        </div>
-
-        <!-- Main Flagship Game Card -->
-        <div class="game-card bg-brand-card border border-brand-border rounded-xl overflow-hidden mb-12 shadow-2xl">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-0">
-                <!-- Direct Image Container con tamaño ampliado y sin bordes blancos -->
-                <div class="lg:col-span-8 relative overflow-hidden min-h-[380px] bg-black flex items-center justify-center border-r border-brand-border">
-                    <img src="LogoV.PNG" alt="Elevator Pit Artwork" class="game-card-img w-full h-full object-contain p-6" onerror="this.src='https://placehold.co/1200x675/15171e/ffffff?text=ELEVATOR+PIT'">
-                    <div class="absolute top-4 left-4 bg-black/80 backdrop-blur-md border border-white/10 px-3 py-1 rounded text-xs font-heading font-bold text-white uppercase z-10">
-                        FLAGSHIP TITLE
-                    </div>
-                </div>
-
-                <!-- Game Details -->
-                <div class="lg:col-span-4 p-8 flex flex-col justify-between bg-brand-card">
-                    <div>
-                        <!-- Badges -->
-                        <div class="flex flex-wrap items-center gap-2 mb-4">
-                            <span class="px-2.5 py-1 bg-brand-red/20 border border-brand-red/40 text-brand-red text-xs font-heading font-bold uppercase rounded">3D ACTION ROGUELIKE</span>
-                            <span class="px-2.5 py-1 bg-white/10 text-white text-xs font-heading font-bold uppercase rounded">PC / STEAM</span>
-                            <span class="px-2.5 py-1 bg-white/10 text-white text-xs font-heading font-bold uppercase rounded">IN DEVELOPMENT</span>
-                        </div>
-
-                        <h3 class="text-3xl md:text-4xl font-heading font-black text-white uppercase mb-4">ELEVATOR PIT</h3>
-                        
-                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
-                            Descend through procedural subterranean floors within the Azath Corp. facility. Control the robotic unit <strong>PCG.1</strong> as you face lethal anomalies, hack corporate terminals, and survive the descent into darkness.
-                        </p>
-
-                        <!-- Highlights List -->
-                        <div class="space-y-3 mb-8 text-xs font-medium text-slate-400">
-                            <div class="flex items-center gap-2">
-                                <i class="ph ph-check-square text-brand-red text-base"></i>
-                                <span>Procedural Level Generation Engine</span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <i class="ph ph-check-square text-brand-red text-base"></i>
-                                <span>Interactive Command-Terminal Hacking</span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <i class="ph ph-check-square text-brand-red text-base"></i>
-                                <span>Style PSX</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card Footer Actions -->
-                    <div class="pt-6 border-t border-brand-border flex items-center justify-between">
-                        <div>
-                            <span class="text-[10px] text-slate-500 uppercase tracking-widest block font-bold">STATUS</span>
-                            <span class="text-xs font-bold text-white">Active Production</span>
-                        </div>
-                        <a href="mailto:entertainmentgdt@gmail.com" class="px-6 py-3 bg-brand-red hover:bg-brand-hover text-white font-heading font-black text-xs uppercase tracking-wider rounded transition-colors flex items-center gap-2">
-                            CONTACT <i class="ph ph-envelope"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 4. STUDIO ABOUT & PHILOSOPHY SECTION -->
-    <section id="about" class="py-24 px-6 max-w-7xl mx-auto border-b border-brand-border">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            
-            <div class="lg:col-span-6">
-                <div class="border-l-4 border-brand-red pl-6 mb-8">
-                    <span class="text-xs font-heading font-bold uppercase tracking-widest text-brand-red block mb-1">WHO WE ARE</span>
-                    <h2 class="text-3xl md:text-5xl font-heading font-black text-white uppercase tracking-tight">LIFE AT SMILE INDIE</h2>
-                </div>
-
-                <p class="text-slate-300 text-base leading-relaxed mb-6 font-normal">
-                    Founded with a passion for original worldbuilding and immersive game mechanics, <strong>Smile Indie Interactive</strong> is an independent development studio focused on crafting memorable digital experiences.
-                </p>
-                <p class="text-slate-400 text-sm leading-relaxed mb-8">
-                    Like the developers who inspire us, we prioritize gameplay depth, artistic voice, and direct engagement with our player community.
-                </p>
-
-                <div class="grid grid-cols-2 sm:grid-cols-3 gap-6 pt-6 border-t border-brand-border">
-                    <div>
-                        <span class="font-heading font-black text-3xl text-white block">2026</span>
-                        <span class="text-xs font-bold text-slate-500 uppercase">ESTABLISHED</span>
-                    </div>
-                    <div>
-                        <span class="font-heading font-black text-3xl text-brand-red block">PC</span>
-                        <span class="text-xs font-bold text-slate-500 uppercase">---</span>
-                    </div>
-                    <div>
-                        <span class="font-heading font-black text-3xl text-white block">100%</span>
-                        <span class="text-xs font-bold text-slate-500 uppercase">INDEPENDENT</span>
-                    </div>
-                </div>
+            <!-- System Clock -->
+            <div class="text-right leading-tight border-l border-white/20 pl-3">
+                <span id="win-time" class="block text-xs">12:00 PM</span>
+                <span id="win-date" class="block text-[9px] text-slate-300">10/02/2026</span>
             </div>
 
-            <!-- Studio Pillar Cards -->
-            <div class="lg:col-span-6 space-y-4">
-                <div class="p-6 bg-brand-card border border-brand-border rounded-xl">
-                    <div class="flex items-center gap-4 mb-2">
-                        <i class="ph ph-game-controller text-brand-red text-3xl"></i>
-                        <h3 class="font-heading font-bold text-white uppercase text-lg">Gameplay First Design</h3>
-                    </div>
-                    <p class="text-slate-400 text-sm">Every mechanic is crafted to provide responsive control and rewarding player mastery.</p>
-                </div>
-
-                <div class="p-6 bg-brand-card border border-brand-border rounded-xl">
-                    <div class="flex items-center gap-4 mb-2">
-                        <i class="ph ph-planet text-brand-red text-3xl"></i>
-                        <h3 class="font-heading font-bold text-white uppercase text-lg">Atmospheric Worlds</h3>
-                    </div>
-                    <p class="text-slate-400 text-sm">Rich environmental narrative design that immerses players from the moment they launch.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 5. NEWS SECTION -->
-    <section id="news" class="py-24 px-6 max-w-7xl mx-auto border-b border-brand-border">
-        <div class="mb-12 border-l-4 border-brand-red pl-6">
-            <span class="text-xs font-heading font-bold uppercase tracking-widest text-brand-red block mb-1">LATEST UPDATES</span>
-            <h2 class="text-3xl md:text-5xl font-heading font-black text-white uppercase tracking-tight">STUDIO NEWS</h2>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <article class="p-8 bg-brand-card border border-brand-border rounded-xl">
-                <span class="text-xs font-bold text-brand-red uppercase tracking-wider block mb-2">DEVELOPMENT BLOG // 2026</span>
-                <h3 class="font-heading font-bold text-white text-xl uppercase mb-3">ANNOUNCING ELEVATOR PIT DEVELOPMENT</h3>
-                <p class="text-slate-400 text-sm leading-relaxed mb-6">
-                    We are excited to share early development details on Elevator Pit, our upcoming 3D Action Roguelike set in the deep underground facilities of Azath Corp.
-                </p>
-                <a href="#contact" class="text-xs font-heading font-bold text-white hover:text-brand-red uppercase tracking-wider transition-colors flex items-center gap-2">
-                    READ FULL ANNOUNCEMENT <i class="ph ph-arrow-right"></i>
-                </a>
-            </article>
-
-            <article class="p-8 bg-brand-card border border-brand-border rounded-xl">
-                <span class="text-xs font-bold text-brand-red uppercase tracking-wider block mb-2">COMMUNITY UPDATES</span>
-                <h3 class="font-heading font-bold text-white text-xl uppercase mb-3">NEW MEDIA & CONCEPT REVEALS</h3>
-                <p class="text-slate-400 text-sm leading-relaxed mb-6">
-                    Check out our newly updated media section featuring concept art for protagonist PCG.1 and procedural facility level layouts.
-                </p>
-                <a href="#about" class="text-xs font-heading font-bold text-white hover:text-brand-red uppercase tracking-wider transition-colors flex items-center gap-2">
-                    LEARN MORE <i class="ph ph-arrow-right"></i>
-                </a>
-            </article>
-        </div>
-    </section>
-
-    <!-- 6. FOOTER SECTION -->
-    <footer id="contact" class="bg-black pt-16 pb-12 px-6">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
-            
-            <div class="md:col-span-5">
-                <div class="flex items-center gap-3 mb-4">
-                    <img src="Smile_indie_20260925_222557_0002.png" alt="Smile Indie Logo" class="h-8 w-auto object-contain" onerror="this.src='https://placehold.co/140x40/15171e/ffffff?text=SMILE+INDIE'">
-                    <span class="font-heading font-black text-lg text-white">SMILE INDIE INTERACTIVE</span>
-                </div>
-                <p class="text-slate-400 text-xs leading-relaxed max-w-sm">
-                    Independent Game Development Studio. Dedicated to original game design and memorable experiences.
-                </p>
-            </div>
-
-            <div class="md:col-span-3">
-                <h4 class="font-heading font-bold text-white uppercase text-xs tracking-widest mb-4">NAVIGATION</h4>
-                <ul class="space-y-2 text-xs font-bold text-slate-400 uppercase">
-                    <li><a href="#home" class="hover:text-white transition-colors">HOME</a></li>
-                    <li><a href="#games" class="hover:text-white transition-colors">GAMES</a></li>
-                    <li><a href="#about" class="hover:text-white transition-colors">ABOUT</a></li>
-                    <li><a href="#news" class="hover:text-white transition-colors">NEWS</a></li>
-                </ul>
-            </div>
-
-            <div class="md:col-span-4">
-                <h4 class="font-heading font-bold text-white uppercase text-xs tracking-widest mb-4">CONTACT & PRESS</h4>
-                <a href="mailto:entertainmentgdt@gmail.com" class="text-sm text-brand-red font-bold hover:underline block mb-2">
-                    entertainmentgdt@gmail.com
-                </a>
-                <p class="text-xs text-slate-500">
-                    For press inquiries, business contacts, or gameplay support.
-                </p>
-            </div>
-        </div>
-
-        <div class="max-w-7xl mx-auto pt-8 border-t border-brand-border flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-medium text-slate-500">
-            <p>&copy; 2026 SMILE INDIE INTERACTIVE. ALL RIGHTS RESERVED.</p>
-            <p class="uppercase font-bold tracking-widest text-[10px]">:D</p>
+            <!-- Show Desktop Peek Rect -->
+            <div onclick="minimizeAll()" class="w-2.5 h-8 bg-white/20 border-l border-white/40 hover:bg-white/40 cursor-pointer" title="Show Desktop"></div>
         </div>
     </footer>
 
-    <!-- Mobile Drawer Script -->
     <script>
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
+        // System Clock Function
+        function updateClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12 || 12;
+            
+            document.getElementById('win-time').textContent = `${hours}:${minutes} ${ampm}`;
+            
+            const day = now.getDate().toString().padStart(2, '0');
+            const month = (now.getMonth() + 1).toString().padStart(2, '0');
+            const year = now.getFullYear();
+            document.getElementById('win-date').textContent = `${month}/${day}/${year}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Window Controls
+        function openWindow(id) {
+            const win = document.getElementById(id);
+            if (win) {
+                win.classList.remove('hidden');
+            }
+        }
+
+        function closeWindow(id) {
+            const win = document.getElementById(id);
+            if (win) {
+                win.classList.add('hidden');
+            }
+        }
+
+        function minimizeWindow(id) {
+            closeWindow(id);
+        }
+
+        function minimizeAll() {
+            closeWindow('main-window');
+            closeWindow('game-window');
+            closeWindow('about-window');
+        }
+
+        function toggleStartMenu() {
+            const menu = document.getElementById('start-menu');
             menu.classList.toggle('hidden');
             menu.classList.toggle('flex');
+        }
+
+        function scrollToSection(id) {
+            openWindow('main-window');
+            const el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+            }
         }
     </script>
 </body>
